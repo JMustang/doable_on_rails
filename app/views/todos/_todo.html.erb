@@ -1,27 +1,58 @@
-<div id="<%= dom_id todo %>">
-  <div>
-    <strong>Name:</strong>
-    <%= todo.name %>
+<div id="<%= dom_id todo %>" class="bg-white shadow-sm rounded-lg overflow-hidden">
+  <div class="px-6 py-4">
+    <div class="flex items-start justify-between">
+      <div class="flex-1">
+        <div class="flex items-center">
+          <% if todo.completed %>
+            <span class="flex-shrink-0 h-6 w-6 text-green-500 mr-3">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+            </span>
+          <% else %>
+            <span class="flex-shrink-0 h-6 w-6 text-gray-300 border-2 border-gray-300 rounded-full mr-3"></span>
+          <% end %>
+          <div>
+            <h3 class="text-lg font-medium text-gray-900"><%= todo.name %></h3>
+            <% if todo.description.present? %>
+              <p class="mt-1 text-sm text-gray-600"><%= todo.description %></p>
+            <% end %>
+          </div>
+        </div>
+        
+        <div class="mt-4 flex flex-wrap items-center gap-4 text-sm">
+          <div class="flex items-center text-gray-500">
+            <span class="font-medium text-gray-700 mr-1">Status:</span>
+            <% if todo.completed %>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                Completed
+              </span>
+            <% else %>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                Pending
+              </span>
+            <% end %>
+          </div>
+          
+          <% if todo.priority && todo.priority > 0 %>
+            <div class="flex items-center text-gray-500">
+              <span class="font-medium text-gray-700 mr-1">Priority:</span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                <%= todo.priority %>
+              </span>
+            </div>
+          <% end %>
+          
+          <% if todo.project %>
+            <div class="flex items-center text-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+              <%= link_to todo.project.name, project_path(todo.project), class: "hover:text-indigo-600 transition-colors font-medium" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div>
-    <strong>Description:</strong>
-    <%= todo.description %>
-  </div>
-
-  <div>
-    <strong>Completed:</strong>
-    <%= todo.completed %>
-  </div>
-
-  <div>
-    <strong>Priority:</strong>
-    <%= todo.priority %>
-  </div>
-
-  <div>
-    <strong>Project:</strong>
-    <%= link_to todo.project.name, project_path(todo.project) %>
-  </div>
-
 </div>
